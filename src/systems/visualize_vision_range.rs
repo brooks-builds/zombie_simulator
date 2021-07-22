@@ -1,5 +1,3 @@
-use std::ops::Deref;
-
 use bbecs::World;
 use eyre::Result;
 use ggez::{
@@ -14,13 +12,27 @@ use crate::components::{
 pub struct VisualizeVisionRange;
 
 impl VisualizeVisionRange {
+    /// Draw a circle around any entities that have the VisualizeVisionRange component.
+    ///
+    /// Since the VisualizeVisionRange component is not always in existance, we need to
+    /// handle the potential error by returning Ok in the case that bbecs cannot find
+    /// the VisualizeVisionRange component.
     pub fn run(self, world: &World, context: &mut Context) -> Result<()> {
-        let query = world
+        let query = match world
             .query()
             .with_component::<Location>()
             .with_component::<VisionRange>()
             .with_component::<DrawVisionRange>()
-            .run();
+            .run()
+        {
+            Ok(results) => results,
+            Err(error) => {
+                return match error.downcast_ref::<bbecs::errors::Errors>() {
+                    Some(bbecs::errors::Errors::ComponentNotFound) => Ok(()),
+                    None => Err(error),
+                };
+            }
+        };
 
         for (index, wrapped_location) in query[0].iter().enumerate() {
             let borrowed_location = wrapped_location.borrow();

@@ -11,7 +11,7 @@ impl UpdateVelocity {
             .query()
             .with_component::<Acceleration>()
             .with_component::<Velocity>()
-            .run();
+            .run()?;
         let accelerations = query[0].clone();
         let velocities = query[1].clone();
         assert_eq!(accelerations.len(), velocities.len());

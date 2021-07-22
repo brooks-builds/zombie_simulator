@@ -2,8 +2,8 @@ use std::ops::Deref;
 
 use bbecs::World;
 use components::{
-    acceleration::Acceleration, color::Color, draw_vision_range::DrawVisionRange, human::Human,
-    location::Location, speed::Speed, velocity::Velocity, vision_range::VisionRange,
+    acceleration::Acceleration, color::Color, human::Human, location::Location, speed::Speed,
+    velocity::Velocity, vision_range::VisionRange,
 };
 use config::Config;
 use data_structures::vector2::Vector2;
@@ -46,8 +46,7 @@ impl MainState {
         world.add_resource(entity_size);
         world.add_resource(ClickedLocation(None));
 
-        world.register_component(DrawVisionRange);
-
+        #[allow(unused_variables)]
         for count in 0..config.humans {
             let registering_entity = world
                 .register_entity()
@@ -107,7 +106,7 @@ impl EventHandler for MainState {
 
     fn mouse_button_down_event(
         &mut self,
-        context: &mut Context,
+        _context: &mut Context,
         button: ggez::event::MouseButton,
         x: f32,
         y: f32,

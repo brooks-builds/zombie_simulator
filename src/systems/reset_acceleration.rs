@@ -7,7 +7,7 @@ pub struct ResetAcceleration;
 
 impl ResetAcceleration {
     pub fn run(self, world: &World) -> Result<()> {
-        let query = world.query().with_component::<Acceleration>().run();
+        let query = world.query().with_component::<Acceleration>().run()?;
         let accelerations = query[0].clone();
         for wrapped_acceleration in accelerations {
             let mut borrowed_acceleration = wrapped_acceleration.borrow_mut();

@@ -120,6 +120,7 @@ name = "bbecs"
 version = "0.3.0"
 dependencies = [
  "eyre",
+ "thiserror",
 ]
 
 [[package]]

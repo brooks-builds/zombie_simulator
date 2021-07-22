@@ -2,7 +2,7 @@ use std::ops::{AddAssign, MulAssign, Sub};
 
 use rand::{thread_rng, Rng};
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 pub struct Vector2 {
     pub x: f32,
     pub y: f32,

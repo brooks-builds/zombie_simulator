@@ -15,7 +15,7 @@ impl HumanRepulsion {
             .with_component::<Speed>()
             .with_component::<Acceleration>()
             .with_component::<VisionRange>()
-            .run();
+            .run()?;
         let other_wrapped_locations = query[0].clone();
 
         for (entity_index, entity_wrapped_location) in query[0].iter().enumerate() {

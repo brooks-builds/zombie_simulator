@@ -2,7 +2,7 @@ use std::ops::{Deref, DerefMut};
 
 use crate::data_structures::vector2::Vector2;
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Velocity(pub Vector2);
 
 impl Velocity {

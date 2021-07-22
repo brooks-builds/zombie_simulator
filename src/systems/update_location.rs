@@ -10,7 +10,7 @@ impl UpdateLocation {
             .query()
             .with_component::<Velocity>()
             .with_component::<Location>()
-            .run();
+            .run()?;
         let velocities = query[0].clone();
         let locations = query[1].clone();
         for (index, wrapped_velocity) in velocities.iter().enumerate() {

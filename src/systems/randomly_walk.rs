@@ -15,7 +15,7 @@ impl RandomlyWalk {
             .with_component::<Acceleration>()
             .with_component::<Speed>()
             .with_component::<Human>()
-            .run();
+            .run()?;
         let accelerations = &query[0];
         let speeds = &query[1];
         for (index, wrapped_acceleration) in accelerations.iter().enumerate() {
