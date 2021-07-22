@@ -7,3 +7,4 @@ pub mod reset_acceleration;
 pub mod update_location;
 pub mod update_velocity;
 pub mod visualize_vision_range;
+pub mod zombie_attraction;

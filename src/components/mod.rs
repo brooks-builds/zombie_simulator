@@ -6,3 +6,4 @@ pub mod location;
 pub mod speed;
 pub mod velocity;
 pub mod vision_range;
+pub mod zombie;

@@ -4,6 +4,7 @@ use crate::{
     components::{
         acceleration::Acceleration, color::Color, draw_vision_range::DrawVisionRange,
         location::Location, speed::Speed, velocity::Velocity, vision_range::VisionRange,
+        zombie::Zombie,
     },
     resources::clicked_location::ClickedLocation,
 };
@@ -33,6 +34,7 @@ impl AddZombie {
             .with_component(Acceleration::new())
             .with_component(Velocity::new())
             .with_component(VisionRange(ZOMBIE_VISION_RANGE))
-            .with_component(DrawVisionRange);
+            .with_component(DrawVisionRange)
+            .with_component(Zombie);
     }
 }
