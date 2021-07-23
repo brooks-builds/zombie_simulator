@@ -12,7 +12,7 @@ use crate::{
 pub struct AddZombie;
 
 const ZOMBIE_COLOR: ggez::graphics::Color = ggez::graphics::Color::new(0.0, 1.0, 0.0, 1.0);
-const ZOMBIE_SPEED: f32 = 0.1;
+const ZOMBIE_SPEED: f32 = 0.01;
 const ZOMBIE_VISION_RANGE: f32 = 100.0;
 
 impl AddZombie {

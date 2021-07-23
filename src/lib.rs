@@ -22,6 +22,7 @@ use systems::{
     draw_entities::DrawEntities, human_repulsion::HumanRepulsion, randomly_walk::RandomlyWalk,
     reset_acceleration::ResetAcceleration, update_location::UpdateLocation,
     update_velocity::UpdateVelocity, visualize_vision_range::VisualizeVisionRange,
+    zombie_attraction::ZombieAttraction,
 };
 
 pub mod components;
@@ -80,6 +81,7 @@ impl EventHandler for MainState {
             let contain_entities_in_arena = ContainEntitiesInArena;
             let human_repulsion = HumanRepulsion;
             let add_zombie = AddZombie;
+            let zombie_attraction = ZombieAttraction;
 
             randomly_walk.run(&self.world).unwrap();
             update_velocity.run(&self.world).unwrap();
@@ -88,6 +90,7 @@ impl EventHandler for MainState {
             contain_entities_in_arena.run(&self.world).unwrap();
             human_repulsion.run(&self.world).unwrap();
             add_zombie.run(&mut self.world);
+            zombie_attraction.run(&self.world).unwrap();
         }
         Ok(())
     }

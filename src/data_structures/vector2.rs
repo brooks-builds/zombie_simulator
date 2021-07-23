@@ -56,8 +56,21 @@ impl Vector2 {
     /// Normalize the vector. This will set the magnitude to 1.
     pub fn normalize(&mut self) {
         let magnitude = self.magnitude();
-        self.x /= magnitude;
-        self.y /= magnitude;
+        if magnitude == 0.0 {
+            self.x = 0.0;
+            self.y = 0.0;
+        } else {
+            self.x /= magnitude;
+            self.y /= magnitude;
+        }
+    }
+
+    pub fn get(&self) -> &Self {
+        self
+    }
+
+    pub fn get_mut(&mut self) -> &mut Self {
+        self
     }
 }
 

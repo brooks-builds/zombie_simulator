@@ -2,7 +2,8 @@ use bbecs::World;
 use eyre::Result;
 
 use crate::components::{
-    acceleration::Acceleration, location::Location, speed::Speed, vision_range::VisionRange,
+    acceleration::Acceleration, human::Human, location::Location, speed::Speed,
+    vision_range::VisionRange,
 };
 
 pub struct HumanRepulsion;
@@ -15,6 +16,7 @@ impl HumanRepulsion {
             .with_component::<Speed>()
             .with_component::<Acceleration>()
             .with_component::<VisionRange>()
+            .with_component::<Human>()
             .run()?;
         let other_wrapped_locations = query[0].clone();
 
