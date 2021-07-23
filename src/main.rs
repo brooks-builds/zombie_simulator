@@ -15,7 +15,7 @@ fn main() -> Result<()> {
         target_fps: 60,
         speed: 0.15,
         humans: 100, // set to 1250 for release
-        human_vision_range: 20.0,
+        human_vision_range: 50.0,
     };
     let mut main_state = MainState::new(config, &mut context)?;
     event::run(&mut context, &mut event_loop, &mut main_state)?;

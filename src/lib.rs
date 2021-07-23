@@ -20,9 +20,9 @@ use resources::{
 use systems::{
     add_zombie::AddZombie, contain_entities_in_arena::ContainEntitiesInArena,
     draw_entities::DrawEntities, human_repulsion::HumanRepulsion, randomly_walk::RandomlyWalk,
-    reset_acceleration::ResetAcceleration, update_location::UpdateLocation,
-    update_velocity::UpdateVelocity, visualize_vision_range::VisualizeVisionRange,
-    zombie_attraction::ZombieAttraction,
+    reset_acceleration::ResetAcceleration, run_away_from_zombies::RunAwayFromZombies,
+    update_location::UpdateLocation, update_velocity::UpdateVelocity,
+    visualize_vision_range::VisualizeVisionRange, zombie_attraction::ZombieAttraction,
 };
 
 pub mod components;
@@ -82,6 +82,7 @@ impl EventHandler for MainState {
             let human_repulsion = HumanRepulsion;
             let add_zombie = AddZombie;
             let zombie_attraction = ZombieAttraction;
+            let run_away_from_zombies = RunAwayFromZombies;
 
             randomly_walk.run(&self.world).unwrap();
             update_velocity.run(&self.world).unwrap();
@@ -91,6 +92,7 @@ impl EventHandler for MainState {
             human_repulsion.run(&self.world).unwrap();
             add_zombie.run(&mut self.world);
             zombie_attraction.run(&self.world).unwrap();
+            run_away_from_zombies.run(&self.world).unwrap();
         }
         Ok(())
     }
