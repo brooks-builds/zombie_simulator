@@ -2,8 +2,8 @@ use std::ops::Deref;
 
 use bbecs::World;
 use components::{
-    acceleration::Acceleration, color::Color, human::Human, location::Location, speed::Speed,
-    velocity::Velocity, vision_range::VisionRange,
+    acceleration::Acceleration, alive::Alive, color::Color, human::Human, location::Location,
+    speed::Speed, velocity::Velocity, vision_range::VisionRange,
 };
 use config::Config;
 use data_structures::vector2::Vector2;
@@ -14,11 +14,11 @@ use ggez::{
     timer, Context,
 };
 use resources::{
-    background_color::BackgroundColor, clicked_location::ClickedLocation, entity_size::EntitySize,
-    mesh::Mesh, target_fps::TargetFps,
+    background_color::BackgroundColor, clicked_location::ClickedLocation, dying_color::DyingColor,
+    entity_size::EntitySize, mesh::Mesh, target_fps::TargetFps,
 };
 use systems::{
-    add_zombie::AddZombie, contain_entities_in_arena::ContainEntitiesInArena,
+    add_zombie::AddZombie, attack::Attack, contain_entities_in_arena::ContainEntitiesInArena,
     draw_entities::DrawEntities, human_repulsion::HumanRepulsion, randomly_walk::RandomlyWalk,
     reset_acceleration::ResetAcceleration, run_away_from_zombies::RunAwayFromZombies,
     update_location::UpdateLocation, update_velocity::UpdateVelocity,
@@ -46,6 +46,7 @@ impl MainState {
         world.add_resource(TargetFps(config.target_fps));
         world.add_resource(entity_size);
         world.add_resource(ClickedLocation(None));
+        world.add_resource(DyingColor(config.dying_color));
 
         #[allow(unused_variables)]
         for count in 0..config.humans {
@@ -60,7 +61,8 @@ impl MainState {
                 .with_component(Speed(config.speed))
                 .with_component(VisionRange(config.human_vision_range))
                 .with_component(Color(WHITE))
-                .with_component(Human);
+                .with_component(Human)
+                .with_component(Alive);
 
             // if count == 1 {
             //     registering_entity.with_component(DrawVisionRange);
@@ -83,6 +85,7 @@ impl EventHandler for MainState {
             let add_zombie = AddZombie;
             let zombie_attraction = ZombieAttraction;
             let run_away_from_zombies = RunAwayFromZombies;
+            let attack = Attack;
 
             randomly_walk.run(&self.world).unwrap();
             update_velocity.run(&self.world).unwrap();
@@ -93,6 +96,7 @@ impl EventHandler for MainState {
             add_zombie.run(&mut self.world);
             zombie_attraction.run(&self.world).unwrap();
             run_away_from_zombies.run(&self.world).unwrap();
+            attack.run(&mut self.world).unwrap();
         }
         Ok(())
     }

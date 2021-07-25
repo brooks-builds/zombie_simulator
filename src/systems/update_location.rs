@@ -11,8 +11,8 @@ impl UpdateLocation {
             .with_component::<Velocity>()
             .with_component::<Location>()
             .run()?;
-        let velocities = query[0].clone();
-        let locations = query[1].clone();
+        let velocities = query.1[0].clone();
+        let locations = query.1[1].clone();
         for (index, wrapped_velocity) in velocities.iter().enumerate() {
             let borrowed_velocity = wrapped_velocity.borrow();
             let mut borrowed_location = locations[index].borrow_mut();

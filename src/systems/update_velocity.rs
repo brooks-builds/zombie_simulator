@@ -12,8 +12,8 @@ impl UpdateVelocity {
             .with_component::<Acceleration>()
             .with_component::<Velocity>()
             .run()?;
-        let accelerations = query[0].clone();
-        let velocities = query[1].clone();
+        let accelerations = query.1[0].clone();
+        let velocities = query.1[1].clone();
         assert_eq!(accelerations.len(), velocities.len());
         for (index, acceleration) in accelerations.iter().enumerate() {
             let borrowed_acceleration = acceleration.borrow();

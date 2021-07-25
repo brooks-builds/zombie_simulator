@@ -30,22 +30,22 @@ impl ZombieAttraction {
             }
         };
         let human_query = world.query().with_component::<Location>().run()?;
-        let wrapped_human_locations = human_query.first().unwrap();
+        let wrapped_human_locations = human_query.1.first().unwrap();
 
-        if zombies_query[0].is_empty() {
+        if zombies_query.1[0].is_empty() {
             return Ok(());
         }
 
-        for (index, wrapped_zombie_location) in zombies_query[1].iter().enumerate() {
+        for (index, wrapped_zombie_location) in zombies_query.1[1].iter().enumerate() {
             let borrowed_zombie_location = wrapped_zombie_location.borrow();
             let zombie_location = borrowed_zombie_location.downcast_ref::<Location>().unwrap();
-            let borrowed_zombie_vision_range = zombies_query[3][index].borrow();
+            let borrowed_zombie_vision_range = zombies_query.1[3][index].borrow();
             let zombie_vision_range = borrowed_zombie_vision_range
                 .downcast_ref::<VisionRange>()
                 .unwrap();
-            let borrowed_zombie_speed = zombies_query[4][index].borrow();
+            let borrowed_zombie_speed = zombies_query.1[4][index].borrow();
             let zombie_speed = borrowed_zombie_speed.downcast_ref::<Speed>().unwrap();
-            let mut borrowed_zombie_acceleration = zombies_query[2][index].borrow_mut();
+            let mut borrowed_zombie_acceleration = zombies_query.1[2][index].borrow_mut();
             let zombie_acceleration = borrowed_zombie_acceleration
                 .downcast_mut::<Acceleration>()
                 .unwrap();

@@ -2,7 +2,7 @@ use bbecs::World;
 use eyre::Result;
 
 use crate::{
-    components::{acceleration::Acceleration, human::Human, speed::Speed},
+    components::{acceleration::Acceleration, alive::Alive, human::Human, speed::Speed},
     data_structures::vector2::Vector2,
 };
 
@@ -15,9 +15,11 @@ impl RandomlyWalk {
             .with_component::<Acceleration>()
             .with_component::<Speed>()
             .with_component::<Human>()
+            .with_component::<Alive>()
             .run()?;
-        let accelerations = &query[0];
-        let speeds = &query[1];
+
+        let accelerations = &query.1[0];
+        let speeds = &query.1[1];
         for (index, wrapped_acceleration) in accelerations.iter().enumerate() {
             let mut borrowed_acceleration = wrapped_acceleration.borrow_mut();
             let borrowed_speed = speeds[index].borrow();

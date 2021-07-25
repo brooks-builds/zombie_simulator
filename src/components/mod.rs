@@ -1,6 +1,8 @@
 pub mod acceleration;
+pub mod alive;
 pub mod color;
 pub mod draw_vision_range;
+pub mod dying;
 pub mod human;
 pub mod location;
 pub mod speed;

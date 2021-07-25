@@ -1,4 +1,4 @@
-use ggez::graphics::Color;
+use ggez::graphics::{self, Color};
 
 use crate::resources::arena_size::ArenaSize;
 
@@ -10,4 +10,5 @@ pub struct Config {
     pub speed: f32,
     pub humans: u32,
     pub human_vision_range: f32,
+    pub dying_color: graphics::Color,
 }

@@ -20,10 +20,10 @@ impl DrawEntities {
             .with_component::<Location>()
             .with_component::<Color>()
             .run()?;
-        for (index, location) in query.first().unwrap().iter().enumerate() {
+        for (index, location) in query.1.first().unwrap().iter().enumerate() {
             let borrowed_location = location.borrow();
             let location = borrowed_location.downcast_ref::<Location>().unwrap();
-            let borrowed_color = query[1][index].borrow();
+            let borrowed_color = query.1[1][index].borrow();
             let color = borrowed_color.downcast_ref::<Color>().unwrap();
 
             graphics::draw(

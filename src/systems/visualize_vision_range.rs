@@ -34,9 +34,9 @@ impl VisualizeVisionRange {
             }
         };
 
-        for (index, wrapped_location) in query[0].iter().enumerate() {
+        for (index, wrapped_location) in query.1[0].iter().enumerate() {
             let borrowed_location = wrapped_location.borrow();
-            let borrowed_vision_range = query[1][index].borrow();
+            let borrowed_vision_range = query.1[1][index].borrow();
             let location = borrowed_location.downcast_ref::<Location>().unwrap();
             let vision_range = borrowed_vision_range.downcast_ref::<VisionRange>().unwrap();
 

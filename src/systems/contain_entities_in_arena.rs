@@ -21,8 +21,8 @@ impl ContainEntitiesInArena {
             .with_component::<Velocity>()
             .with_component::<Location>()
             .run()?;
-        let velocities = query[0].clone();
-        let locations = query[1].clone();
+        let velocities = query.1[0].clone();
+        let locations = query.1[1].clone();
 
         for (index, wrapped_velocity) in velocities.iter().enumerate() {
             let mut borrowed_velocity = wrapped_velocity.borrow_mut();

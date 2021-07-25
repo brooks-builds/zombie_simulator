@@ -2,7 +2,7 @@ use bbecs::World;
 use eyre::Result;
 
 use crate::components::{
-    acceleration::Acceleration, human::Human, location::Location, speed::Speed,
+    acceleration::Acceleration, alive::Alive, human::Human, location::Location, speed::Speed,
     vision_range::VisionRange,
 };
 
@@ -17,19 +17,20 @@ impl HumanRepulsion {
             .with_component::<Acceleration>()
             .with_component::<VisionRange>()
             .with_component::<Human>()
+            .with_component::<Alive>()
             .run()?;
-        let other_wrapped_locations = query[0].clone();
+        let other_wrapped_locations = query.1[0].clone();
 
-        for (entity_index, entity_wrapped_location) in query[0].iter().enumerate() {
+        for (entity_index, entity_wrapped_location) in query.1[0].iter().enumerate() {
             let borrowed_entity_location = entity_wrapped_location.borrow();
-            let borrowed_entity_vision_range = query[3][entity_index].borrow();
+            let borrowed_entity_vision_range = query.1[3][entity_index].borrow();
             let entity_location = borrowed_entity_location.downcast_ref::<Location>().unwrap();
             let entity_vision_range = borrowed_entity_vision_range
                 .downcast_ref::<VisionRange>()
                 .unwrap();
-            let borrowed_entity_speed = query[1][entity_index].borrow();
+            let borrowed_entity_speed = query.1[1][entity_index].borrow();
             let entity_speed = borrowed_entity_speed.downcast_ref::<Speed>().unwrap();
-            let mut borrowed_entity_acceleration = query[2][entity_index].borrow_mut();
+            let mut borrowed_entity_acceleration = query.1[2][entity_index].borrow_mut();
             let entity_acceleration = borrowed_entity_acceleration
                 .downcast_mut::<Acceleration>()
                 .unwrap();

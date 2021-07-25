@@ -1,4 +1,5 @@
 pub mod add_zombie;
+pub mod attack;
 pub mod contain_entities_in_arena;
 pub mod draw_entities;
 pub mod human_repulsion;
