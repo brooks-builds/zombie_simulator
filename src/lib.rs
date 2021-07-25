@@ -15,13 +15,13 @@ use ggez::{
 };
 use resources::{
     background_color::BackgroundColor, clicked_location::ClickedLocation, dying_color::DyingColor,
-    entity_size::EntitySize, mesh::Mesh, target_fps::TargetFps,
+    dying_time::DyingTime, entity_size::EntitySize, mesh::Mesh, target_fps::TargetFps,
 };
 use systems::{
     add_zombie::AddZombie, attack::Attack, contain_entities_in_arena::ContainEntitiesInArena,
     draw_entities::DrawEntities, human_repulsion::HumanRepulsion, randomly_walk::RandomlyWalk,
     reset_acceleration::ResetAcceleration, run_away_from_zombies::RunAwayFromZombies,
-    update_location::UpdateLocation, update_velocity::UpdateVelocity,
+    update_dying::UpdateDying, update_location::UpdateLocation, update_velocity::UpdateVelocity,
     visualize_vision_range::VisualizeVisionRange, zombie_attraction::ZombieAttraction,
 };
 
@@ -47,6 +47,7 @@ impl MainState {
         world.add_resource(entity_size);
         world.add_resource(ClickedLocation(None));
         world.add_resource(DyingColor(config.dying_color));
+        world.add_resource(DyingTime(config.dying_time));
 
         #[allow(unused_variables)]
         for count in 0..config.humans {
@@ -86,6 +87,7 @@ impl EventHandler for MainState {
             let zombie_attraction = ZombieAttraction;
             let run_away_from_zombies = RunAwayFromZombies;
             let attack = Attack;
+            let update_dying = UpdateDying;
 
             randomly_walk.run(&self.world).unwrap();
             update_velocity.run(&self.world).unwrap();
@@ -97,6 +99,7 @@ impl EventHandler for MainState {
             zombie_attraction.run(&self.world).unwrap();
             run_away_from_zombies.run(&self.world).unwrap();
             attack.run(&mut self.world).unwrap();
+            update_dying.run(&self.world).unwrap();
         }
         Ok(())
     }

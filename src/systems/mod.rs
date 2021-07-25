@@ -6,6 +6,7 @@ pub mod human_repulsion;
 pub mod randomly_walk;
 pub mod reset_acceleration;
 pub mod run_away_from_zombies;
+pub mod update_dying;
 pub mod update_location;
 pub mod update_velocity;
 pub mod visualize_vision_range;

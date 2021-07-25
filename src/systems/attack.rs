@@ -3,10 +3,10 @@ use eyre::Result;
 
 use crate::{
     components::{
-        alive::Alive, color::Color, human::Human, location::Location, velocity::Velocity,
-        zombie::Zombie,
+        alive::Alive, color::Color, dying::Dying, human::Human, location::Location,
+        velocity::Velocity, zombie::Zombie,
     },
-    resources::{dying_color::DyingColor, entity_size::EntitySize},
+    resources::{dying_color::DyingColor, dying_time::DyingTime, entity_size::EntitySize},
 };
 
 pub struct Attack;
@@ -15,6 +15,7 @@ impl Attack {
     pub fn run(self, world: &mut World) -> Result<()> {
         let entity_size = world.get_resource::<EntitySize>().unwrap();
         let dying_color = world.get_resource::<DyingColor>().unwrap();
+        let dying_time = **world.get_resource::<DyingTime>().unwrap();
         let zombies_query = match world
             .query()
             .with_component::<Location>()
@@ -58,7 +59,9 @@ impl Attack {
                     human_color.set(**dying_color);
                     zombie_velocity.clear();
                     human_velocity.clear();
-                    world.remove_component::<Alive>(humans_query.0[human_index]);
+                    let entity_index = humans_query.0[human_index];
+                    world.remove_component::<Alive>(entity_index);
+                    world.add_component_to_entity(Dying(dying_time), entity_index);
                     return Ok(());
                 }
             }

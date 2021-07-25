@@ -11,4 +11,5 @@ pub struct Config {
     pub humans: u32,
     pub human_vision_range: f32,
     pub dying_color: graphics::Color,
+    pub dying_time: u32,
 }

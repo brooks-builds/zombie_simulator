@@ -22,6 +22,7 @@ fn main() -> Result<()> {
         humans: 100, // set to 1250 for release
         human_vision_range: 50.0,
         dying_color: graphics::Color::new(0.3, 0.3, 0.3, 1.0),
+        dying_time: 600,
     };
     let mut main_state = MainState::new(config, &mut context)?;
     event::run(&mut context, &mut event_loop, &mut main_state)?;
