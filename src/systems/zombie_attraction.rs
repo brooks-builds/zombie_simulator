@@ -2,8 +2,8 @@ use bbecs::{errors::Errors, World};
 use eyre::Result;
 
 use crate::components::{
-    acceleration::Acceleration, location::Location, speed::Speed, vision_range::VisionRange,
-    zombie::Zombie,
+    acceleration::Acceleration, alive::Alive, human::Human, location::Location, speed::Speed,
+    vision_range::VisionRange, zombie::Zombie,
 };
 
 pub struct ZombieAttraction;
@@ -29,7 +29,12 @@ impl ZombieAttraction {
                 }
             }
         };
-        let human_query = world.query().with_component::<Location>().run()?;
+        let human_query = world
+            .query()
+            .with_component::<Location>()
+            .with_component::<Human>()
+            .with_component::<Alive>()
+            .run()?;
         let wrapped_human_locations = human_query.1.first().unwrap();
 
         if zombies_query.1[0].is_empty() {

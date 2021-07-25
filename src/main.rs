@@ -19,7 +19,7 @@ fn main() -> Result<()> {
         size: 5.0,
         target_fps: 60,
         speed: 0.15,
-        humans: 100, // set to 1250 for release
+        humans: 750, // set to 1250 for release
         human_vision_range: 50.0,
         dying_color: graphics::Color::new(0.3, 0.3, 0.3, 1.0),
         dying_time: 600,

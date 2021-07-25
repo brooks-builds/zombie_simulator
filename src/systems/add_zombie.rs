@@ -2,9 +2,8 @@ use bbecs::World;
 
 use crate::{
     components::{
-        acceleration::Acceleration, color::Color, draw_vision_range::DrawVisionRange,
-        location::Location, speed::Speed, velocity::Velocity, vision_range::VisionRange,
-        zombie::Zombie,
+        acceleration::Acceleration, color::Color, location::Location, speed::Speed,
+        velocity::Velocity, vision_range::VisionRange, zombie::Zombie,
     },
     resources::{
         clicked_location::ClickedLocation, zombie_color::ZombieColor, zombie_speed::ZombieSpeed,
@@ -39,7 +38,7 @@ impl AddZombie {
             .with_component(Acceleration::new())
             .with_component(Velocity::new())
             .with_component(VisionRange(zombie_vision_range))
-            .with_component(DrawVisionRange)
+            // .with_component(DrawVisionRange)
             .with_component(Zombie);
     }
 }

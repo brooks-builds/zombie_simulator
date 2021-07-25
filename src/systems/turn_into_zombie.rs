@@ -3,7 +3,8 @@ use eyre::Result;
 
 use crate::{
     components::{
-        color::Color, dying::Dying, speed::Speed, vision_range::VisionRange, zombie::Zombie,
+        color::Color, dying::Dying, human::Human, speed::Speed, vision_range::VisionRange,
+        zombie::Zombie,
     },
     resources::{
         zombie_color::ZombieColor, zombie_speed::ZombieSpeed,
@@ -46,6 +47,8 @@ impl TurnIntoZombie {
             if !dying.is_dead() {
                 continue;
             }
+
+            world.remove_component::<Human>(entity_indexes[index]);
 
             let mut borrowed_color = query[1][index].borrow_mut();
             let color = borrowed_color.downcast_mut::<Color>().unwrap();
