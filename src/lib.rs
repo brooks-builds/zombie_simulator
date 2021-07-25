@@ -16,13 +16,15 @@ use ggez::{
 use resources::{
     background_color::BackgroundColor, clicked_location::ClickedLocation, dying_color::DyingColor,
     dying_time::DyingTime, entity_size::EntitySize, mesh::Mesh, target_fps::TargetFps,
+    zombie_color::ZombieColor, zombie_speed::ZombieSpeed, zombie_vision_range::ZombieVisionRange,
 };
 use systems::{
     add_zombie::AddZombie, attack::Attack, contain_entities_in_arena::ContainEntitiesInArena,
     draw_entities::DrawEntities, human_repulsion::HumanRepulsion, randomly_walk::RandomlyWalk,
     reset_acceleration::ResetAcceleration, run_away_from_zombies::RunAwayFromZombies,
-    update_dying::UpdateDying, update_location::UpdateLocation, update_velocity::UpdateVelocity,
-    visualize_vision_range::VisualizeVisionRange, zombie_attraction::ZombieAttraction,
+    turn_into_zombie::TurnIntoZombie, update_dying::UpdateDying, update_location::UpdateLocation,
+    update_velocity::UpdateVelocity, visualize_vision_range::VisualizeVisionRange,
+    zombie_attraction::ZombieAttraction,
 };
 
 pub mod components;
@@ -48,6 +50,9 @@ impl MainState {
         world.add_resource(ClickedLocation(None));
         world.add_resource(DyingColor(config.dying_color));
         world.add_resource(DyingTime(config.dying_time));
+        world.add_resource(ZombieColor(config.zombie_color));
+        world.add_resource(ZombieSpeed(config.zombie_speed));
+        world.add_resource(ZombieVisionRange(config.zombie_vision_range));
 
         #[allow(unused_variables)]
         for count in 0..config.humans {
@@ -88,6 +93,7 @@ impl EventHandler for MainState {
             let run_away_from_zombies = RunAwayFromZombies;
             let attack = Attack;
             let update_dying = UpdateDying;
+            let turn_into_zombie = TurnIntoZombie;
 
             randomly_walk.run(&self.world).unwrap();
             update_velocity.run(&self.world).unwrap();
@@ -100,6 +106,7 @@ impl EventHandler for MainState {
             run_away_from_zombies.run(&self.world).unwrap();
             attack.run(&mut self.world).unwrap();
             update_dying.run(&self.world).unwrap();
+            turn_into_zombie.run(&mut self.world).unwrap();
         }
         Ok(())
     }

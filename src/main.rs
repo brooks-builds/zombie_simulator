@@ -23,6 +23,9 @@ fn main() -> Result<()> {
         human_vision_range: 50.0,
         dying_color: graphics::Color::new(0.3, 0.3, 0.3, 1.0),
         dying_time: 600,
+        zombie_color: ggez::graphics::Color::new(0.0, 1.0, 0.0, 1.0),
+        zombie_speed: 0.01,
+        zombie_vision_range: 100.0,
     };
     let mut main_state = MainState::new(config, &mut context)?;
     event::run(&mut context, &mut event_loop, &mut main_state)?;

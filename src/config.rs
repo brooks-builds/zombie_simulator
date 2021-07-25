@@ -12,4 +12,7 @@ pub struct Config {
     pub human_vision_range: f32,
     pub dying_color: graphics::Color,
     pub dying_time: u32,
+    pub zombie_color: graphics::Color,
+    pub zombie_speed: f32,
+    pub zombie_vision_range: f32,
 }

@@ -6,3 +6,6 @@ pub mod dying_time;
 pub mod entity_size;
 pub mod mesh;
 pub mod target_fps;
+pub mod zombie_color;
+pub mod zombie_speed;
+pub mod zombie_vision_range;
